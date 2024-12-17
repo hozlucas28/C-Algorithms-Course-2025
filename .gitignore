@@ -1,0 +1,108 @@
+
+# ---------------------------------------------------------------------------- #
+#                              VISUAL STUDIO CODE                              #
+# ---------------------------------------------------------------------------- #
+
+*.vscode/
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                  CODEBLOCKS                                  #
+# ---------------------------------------------------------------------------- #
+
+# specific to CodeBlocks IDE
+*.layout
+*.depend
+
+# generated directories
+bin/
+obj/
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                PERSONAL FILES                                #
+# ---------------------------------------------------------------------------- #
+
+*template/
+
+
+
+# ---------------------------------------------------------------------------- #
+#                              TEMPORAL EXAM FILES                             #
+# ---------------------------------------------------------------------------- #
+
+clientes.txt
+clientesPermutado.txt
+clientesRestaurado.txt
+perm.txt
+
+Exams/08/main/tabla.txt
+Exams/08/main/tablaPermutada.txt
+Exams/08/main/tablaRecuperada.txt
+
+Practices/Pre-final-exam/Replace-All-Words/main/file-modified.txt
+
+Exams/09/main/partners-a.bin
+Exams/09/main/partners-merged.txt
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                       C                                      #
+# ---------------------------------------------------------------------------- #
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.dat
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+# *.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
