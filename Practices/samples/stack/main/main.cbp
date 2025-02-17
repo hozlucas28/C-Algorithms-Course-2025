@@ -32,8 +32,6 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Linker>
-			<Add library="../static-library/bin/Debug/library.a" />
-			<Add library="../static-library/bin/Release/library.a" />
 			<Add library="../dynamic-library/bin/Debug/library.a" />
 			<Add library="../dynamic-library/bin/Release/library.a" />
 		</Linker>
