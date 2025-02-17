@@ -30,9 +30,10 @@ unsigned char getStackTopElement(
     const size_t sizeOfStore
 ) {
     if (*_stack == NULL) return 1;
+
     if ((*_stack)->__sizeOfData != sizeOfStore) return 1;
 
-    memcpy(store, (*_stack)->__data, sizeOfStore);
+    memcpy(store, (*_stack)->__data, (*_stack)->__sizeOfData);
 
     return 0;
 }
@@ -66,10 +67,6 @@ unsigned char pushStackElement(
     Node* newNode;
     void* newNodeData;
 
-    while (*_stack != NULL) {
-        _stack = &(*_stack)->__next;
-    };
-
     newNode = malloc(sizeof(Node));
     newNodeData = malloc(sizeOfData);
 
@@ -79,7 +76,7 @@ unsigned char pushStackElement(
 
     newNode->__data = newNodeData;
     newNode->__sizeOfData = sizeOfData;
-    newNode->__next = NULL;
+    newNode->__next = *_stack;
 
     *_stack = newNode;
 
@@ -91,20 +88,19 @@ unsigned char popStackElement(
     void* store,
     const size_t sizeOfStore
 ) {
+    Node* nextNode;
+
     if (*_stack == NULL) return 1;
-
-    while ((*_stack)->__next != NULL) {
-        _stack = &(*_stack)->__next;
-    };
-
     if ((*_stack)->__sizeOfData != sizeOfStore) return 1;
 
-    memcpy(store, (*_stack)->__data, sizeOfStore);
+    memcpy(store, (*_stack)->__data, (*_stack)->__sizeOfData);
+
+    nextNode = (*_stack)->__next;
 
     free((*_stack)->__data);
     free(*_stack);
 
-    *_stack = NULL;
+    *_stack = nextNode;
 
     return 0;
 }
