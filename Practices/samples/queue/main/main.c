@@ -19,12 +19,12 @@ int main() {
     printf("> Push elements...\n\n");
 
     for (i = 0; i < numbersLength; i++) {
-        error = push(&queue, numbers + i, sizeof(*(numbers + i)));
+        error = pushQueueElement(&queue, numbers + i, sizeof(*(numbers + i)));
         if (error) {
             printf(
-                "> Error! An error occurred on push(0x%p, 0x%p, %d).\n",
+                "> Error! An error occurred on push(0x%p, %d, %d).\n",
                 (void*)&queue,
-                (void*)(numbers + i),
+                *(numbers + i),
                 (int)sizeof(*(numbers + i))
             );
 
@@ -32,17 +32,17 @@ int main() {
         };
 
         printf(
-            "> push(0x%p, 0x%p, %d).\n",
+            "> push(0x%p, %d, %d).\n",
             (void*)&queue,
-            (void*)(numbers + i),
+            *(numbers + i),
             (int)sizeof(*(numbers + i))
         );
     };
 
     printf("\n> Shift elements...\n\n");
 
-    while (!isEmpty(&queue)) {
-        error = shift(&queue, &poppedElement, sizeof(poppedElement));
+    while (!isQueueEmpty(&queue)) {
+        error = shiftQueueElement(&queue, &poppedElement, sizeof(poppedElement));
         if (error) {
             printf(
                 "> Error! An error occurred on shift(0x%p, 0x%p, %d).\n",

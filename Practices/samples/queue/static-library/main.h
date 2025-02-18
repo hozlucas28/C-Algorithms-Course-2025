@@ -1,29 +1,26 @@
 
-#ifndef MAIN_DYNAMIC_LIBRARY_H_INCLUDED
-#define MAIN_DYNAMIC_LIBRARY_H_INCLUDED
+#ifndef MAIN_STATIC_LIBRARY_H_INCLUDED
+#define MAIN_STATIC_LIBRARY_H_INCLUDED
 
 #include <stdlib.h>
 
-/* -------- Node --------- */
+#define MIN(a, b) ((a) > (b) ? (b) : (a));
 
-typedef struct Node {
-    void* __data;
-    size_t __sizeOfData;
-    struct Node* __next;
-} Node;
+/* ------------ Queue ------------ */
 
-
-/* -------- Queue -------- */
+#define QUEUE_BYTES ((sizeof(size_t) + sizeof(int)) * 6)
 
 typedef struct {
-    Node* __head;
-    Node* __tail;
+    char __data[QUEUE_BYTES];
+    size_t __head;
+    size_t __tail;
+    size_t __remainingCapacity;
 } Queue;
 
 // Constructor
 void newQueue(Queue* _queue);
 
-// Destroyer
+// Destructor
 void destroyQueue(Queue* _queue);
 
 // Getters
@@ -53,4 +50,4 @@ unsigned char pushQueueElement(
     const size_t sizeOfData
 );
 
-#endif // MAIN_DYNAMIC_LIBRARY_H_INCLUDED
+#endif // MAIN_STATIC_LIBRARY_H_INCLUDED

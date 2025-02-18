@@ -29,7 +29,7 @@ void destroyQueue(Queue* _queue) {
 }
 
 // Getters
-unsigned char getHead(
+unsigned char getTopQueueElement(
     const Queue* _queue,
     void* store,
     const size_t sizeOfStore
@@ -42,13 +42,12 @@ unsigned char getHead(
     return 0;
 }
 
-unsigned char isEmpty(const Queue* _queue) {
+unsigned char isQueueEmpty(const Queue* _queue) {
     return _queue->__head == NULL;
 }
 
-unsigned char isFull(
+unsigned char isQueueFull(
     const Queue* _queue,
-    const void* data,
     const size_t sizeOfData
 ) {
     Node* node;
@@ -64,7 +63,7 @@ unsigned char isFull(
 }
 
 // Methods
-unsigned char shift(
+unsigned char shiftQueueElement(
     Queue* _queue,
     void* store,
     const size_t sizeOfStore
@@ -86,7 +85,7 @@ unsigned char shift(
     return 0;
 }
 
-unsigned char push(
+unsigned char pushQueueElement(
     Queue* _queue,
     void* data,
     const size_t sizeOfData
