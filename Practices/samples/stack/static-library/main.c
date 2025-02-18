@@ -49,7 +49,8 @@ unsigned char isStackFull(
     Stack* _stack,
     const size_t sizeOfData
 ) {
-    return _stack->__remainingCapacity < 1;
+    const size_t spaceRequired = sizeof(size_t) + sizeOfData;
+    return spaceRequired > _stack->__remainingCapacity;
 }
 
 // Methods
