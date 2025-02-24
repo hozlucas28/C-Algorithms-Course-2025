@@ -19,32 +19,32 @@ int main() {
     int poppedElement;
 
     for (i = 0; i < numbersLength; i++) {
-        stackError = pushStackElement(&stack, numbers + i, sizeof(*numbers));
+        stackError = unshiftStack(&stack, numbers + i, sizeof(*numbers));
         if (stackError) {
             printf(
-                "> Error! An error occurred on pushStackElement(%d, %d).\n",
+                "> Error! An error occurred on unshiftStack(%d, %d).\n",
                 *(numbers + i),
                 (int)sizeof(*numbers)
             );
         } else {
             printf(
-                "> pushStackElement(%d, %d).\n",
+                "> unshiftStack(%d, %d).\n",
                 *(numbers + i),
                 (int)sizeof(*numbers)
             );
         };
     };
 
-    stackError = getStackTopElement(&stack, &topElement, sizeof(topElement));
+    stackError = getStackTop(&stack, &topElement, sizeof(topElement));
     if (stackError) {
         printf(
-            "\n> Error! An error occurred on getStackTopElement(0x%p, %d).\n\n",
+            "\n> Error! An error occurred on getStackTop(0x%p, %d).\n\n",
             (void*)&topElement,
             (int)sizeof(topElement)
         );
     } else {
         printf(
-            "\n> getStackTopElement(0x%p, %d) = %d.\n\n",
+            "\n> getStackTop(0x%p, %d) = %d.\n\n",
             (void*)&topElement,
             (int)sizeof(topElement),
             topElement
@@ -53,16 +53,16 @@ int main() {
 
 
     for (i = 0; i < numbersLength; i++) {
-        stackError = popStackElement(&stack, &poppedElement, sizeof(poppedElement));
+        stackError = shiftStackElement(&stack, &poppedElement, sizeof(poppedElement));
         if (stackError) {
             printf(
-                "> Error! An error occurred on popStackElement(0x%p, %d).\n",
+                "> Error! An error occurred on shiftStackElement(0x%p, %d).\n",
                 (void*)&poppedElement,
                 (int)sizeof(poppedElement)
             );
         } else {
             printf(
-                "> popStackElement(0x%p, %d) = %d.\n",
+                "> shiftStackElement(0x%p, %d) = %d.\n",
                 (void*)&poppedElement,
                 (int)sizeof(poppedElement),
                 poppedElement

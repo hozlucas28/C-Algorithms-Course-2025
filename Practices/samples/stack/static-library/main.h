@@ -18,7 +18,7 @@ void newStack(Stack* _stack);
 void destroyStack(Stack* _stack);
 
 // Getters
-unsigned char getStackTopElement(
+unsigned char getStackTop(
     Stack* _stack,
     void* store,
     const size_t sizeOfStore
@@ -32,13 +32,13 @@ unsigned char isStackFull(
 );
 
 // Methods
-unsigned char  pushStackElement(
+unsigned char unshiftStack(
     Stack* _stack,
     void* data,
     const size_t sizeOfData
 );
 
-unsigned char  popStackElement(
+unsigned char shiftStackElement(
     Stack* _stack,
     void* store,
     const size_t sizeOfStore

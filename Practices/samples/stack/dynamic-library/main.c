@@ -24,7 +24,7 @@ void destroyStack(Stack* _stack) {
 }
 
 // Getters
-unsigned char getStackTopElement(
+unsigned char getStackTop(
     Stack* _stack,
     void* store,
     const size_t sizeOfStore
@@ -36,10 +36,6 @@ unsigned char getStackTopElement(
     memcpy(store, (*_stack)->__data, (*_stack)->__sizeOfData);
 
     return 0;
-}
-
-unsigned char isStackEmpty(const Stack* _stack) {
-    return *_stack == NULL;
 }
 
 unsigned char isStackFull(
@@ -58,8 +54,12 @@ unsigned char isStackFull(
     return node == NULL || nodeData == NULL;
 }
 
+unsigned char isStackEmpty(const Stack* _stack) {
+    return *_stack == NULL;
+}
+
 // Methods
-unsigned char pushStackElement(
+unsigned char unshiftStack(
     Stack* _stack,
     void* data,
     const size_t sizeOfData
@@ -83,7 +83,7 @@ unsigned char pushStackElement(
     return 0;
 }
 
-unsigned char popStackElement(
+unsigned char shiftStackElement(
     Stack* _stack,
     void* store,
     const size_t sizeOfStore
@@ -103,4 +103,35 @@ unsigned char popStackElement(
     *_stack = nextNode;
 
     return 0;
+}
+
+void flatStack(Stack* _stack) {
+    Stack innerStack;
+
+    Node* head = NULL;
+    Node* lastTail = NULL;
+
+    Node* nextNode;
+
+    if (*_stack == NULL) return;
+
+    while (*_stack != NULL) {
+        innerStack = *(Stack*)(*_stack)->__data;
+
+        if (head == NULL) head = innerStack;
+        if (lastTail != NULL) lastTail->__next = innerStack;
+
+        while (innerStack->__next != NULL) {
+            innerStack = innerStack->__next;
+        };
+
+        lastTail = innerStack;
+
+        nextNode = (*_stack)->__next;
+        free(*_stack);
+
+        *_stack = nextNode;
+    };
+
+    *_stack = head;
 }
