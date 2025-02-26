@@ -70,6 +70,14 @@ unsigned char insertSListElementInOrder(
     int (*cmp)(const void* data, const void* element)
 );
 
+unsigned char insertSListElementTop(
+    SList* _list,
+    void* data,
+    const size_t sizeOfData,
+    const size_t maximumTop,
+    int (*cmp)(const void* data, const void* element)
+);
+
 void sortSList(
     SList* _list,
     int (*cmp)(const void* a, const void* b)

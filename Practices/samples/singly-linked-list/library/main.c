@@ -205,6 +205,59 @@ unsigned char insertSListElementInOrder(
     return 0;
 }
 
+unsigned char insertSListElementTop(
+    SList* _list,
+    void* data,
+    const size_t sizeOfData,
+    const size_t maximumTop,
+    int (*cmp)(const void* data, const void* element)
+) {
+    size_t counter = 0;
+
+    Node* newNode;
+
+    SList* listOutOfRange;
+
+    Node* nextNode;
+
+    while (*_list != NULL && counter < maximumTop && cmp(data, (*_list)->__data) > 0) {
+        _list = &(*_list)->__next;
+        counter++;
+    };
+
+    newNode = malloc(sizeof(Node));
+    if (newNode == NULL) return 1;
+
+    newNode->__data = malloc(sizeOfData);
+    if (newNode->__data == NULL) {
+        free(newNode);
+        return 1;
+    };
+
+    memcpy(newNode->__data, data, sizeOfData);
+    newNode->__sizeOfData = sizeOfData;
+    newNode->__next = NULL;
+
+    if (*_list != NULL) newNode->__next = *_list;
+    *_list = newNode;
+
+    listOutOfRange = _list;
+
+    while (*listOutOfRange != NULL && counter < maximumTop) {
+        listOutOfRange = &(*listOutOfRange)->__next;
+        counter++;
+    };
+
+    while (*listOutOfRange != NULL) {
+        nextNode = (*listOutOfRange)->__next;
+        free((*listOutOfRange)->__data);
+        free(*listOutOfRange);
+        *listOutOfRange = nextNode;
+    };
+
+    return 0;
+}
+
 void sortSList(
     SList* _list,
     int (*cmp)(const void* a, const void* b)
