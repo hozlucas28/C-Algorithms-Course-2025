@@ -214,16 +214,27 @@ unsigned char insertSListElementTop(
 ) {
     size_t counter = 0;
 
+    int cmpValue;
+    Node* prevNode = NULL;
+
     Node* newNode;
 
     SList* listOutOfRange;
 
     Node* nextNode;
 
-    while (*_list != NULL && counter < maximumTop && cmp(data, (*_list)->__data) > 0) {
+    while (*_list != NULL && counter < maximumTop && (cmpValue = cmp(data, (*_list)->__data)) >= 0) {
+        prevNode = *_list;
         _list = &(*_list)->__next;
-        counter++;
+        if (cmpValue != 0) counter++;
+
+        while (*_list != NULL && cmp(prevNode->__data, (*_list)->__data) == 0) {
+            prevNode = *_list;
+            _list = &(*_list)->__next;
+        };
     };
+
+    if (counter == maximumTop) return 0;
 
     newNode = malloc(sizeof(Node));
     if (newNode == NULL) return 1;
@@ -244,8 +255,14 @@ unsigned char insertSListElementTop(
     listOutOfRange = _list;
 
     while (*listOutOfRange != NULL && counter < maximumTop) {
+        prevNode = *listOutOfRange;
         listOutOfRange = &(*listOutOfRange)->__next;
         counter++;
+
+        while (*listOutOfRange != NULL && cmp(prevNode->__data, (*listOutOfRange)->__data) == 0) {
+            prevNode = *listOutOfRange;
+            listOutOfRange = &(*listOutOfRange)->__next;
+        };
     };
 
     while (*listOutOfRange != NULL) {
