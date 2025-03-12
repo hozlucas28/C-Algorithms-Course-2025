@@ -52,4 +52,9 @@ unsigned char shiftStackElement(
 
 void flatStack(Stack* _stack);
 
+unsigned char toFlatStack(
+    Stack* _stack,
+    Stack* flattedStack
+);
+
 #endif // MAIN_DYNAMIC_LIBRARY_H_INCLUDED

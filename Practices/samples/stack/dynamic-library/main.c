@@ -135,3 +135,71 @@ void flatStack(Stack* _stack) {
 
     *_stack = head;
 }
+
+
+unsigned char toFlatStack(
+    Stack* _stack,
+    Stack* flattedStack
+) {
+    Stack innerStack;
+
+    Node* newNode;
+
+    Node* nextNode;
+
+    Node* head = NULL;
+
+    if (*_stack == NULL) return *flattedStack != NULL;
+    if (*flattedStack != NULL) return 1;
+
+    while (*_stack != NULL) {
+        innerStack = *(Stack*)(*_stack)->__data;
+
+        while (innerStack != NULL) {
+            newNode = malloc(sizeof(Node));
+            if (newNode == NULL) {
+                while (*flattedStack != NULL) {
+                    nextNode = (*flattedStack)->__next;
+                    free((*flattedStack)->__data);
+                    free(*flattedStack);
+                    *flattedStack = nextNode;
+                };
+
+                return 1;
+            };
+
+            newNode->__data = malloc(innerStack->__sizeOfData);
+            if (newNode->__data == NULL) {
+                free(newNode);
+
+                while (*flattedStack != NULL) {
+                    nextNode = (*flattedStack)->__next;
+                    free((*flattedStack)->__data);
+                    free(*flattedStack);
+                    *flattedStack = nextNode;
+                };
+
+                return 1;
+            };
+
+            memcpy(newNode->__data, innerStack->__data, innerStack->__sizeOfData);
+            newNode->__sizeOfData = innerStack->__sizeOfData;
+            newNode->__next = NULL;
+
+            if (*flattedStack == NULL) {
+                head = newNode;
+            } else {
+                (*flattedStack)->__next = newNode;
+            };
+
+            *flattedStack = newNode;
+            innerStack = innerStack->__next;
+        };
+
+        _stack = &(*_stack)->__next;
+    };
+
+    *flattedStack = head;
+
+    return 0;
+}
