@@ -158,11 +158,11 @@ unsigned char toFlatStack(
         while (innerStack != NULL) {
             newNode = malloc(sizeof(Node));
             if (newNode == NULL) {
-                while (*flattedStack != NULL) {
-                    nextNode = (*flattedStack)->__next;
-                    free((*flattedStack)->__data);
-                    free(*flattedStack);
-                    *flattedStack = nextNode;
+                while (head != NULL) {
+                    nextNode = (head)->__next;
+                    free((head)->__data);
+                    free(head);
+                    head = nextNode;
                 };
 
                 return 1;
@@ -172,11 +172,11 @@ unsigned char toFlatStack(
             if (newNode->__data == NULL) {
                 free(newNode);
 
-                while (*flattedStack != NULL) {
-                    nextNode = (*flattedStack)->__next;
-                    free((*flattedStack)->__data);
-                    free(*flattedStack);
-                    *flattedStack = nextNode;
+                while (head != NULL) {
+                    nextNode = (head)->__next;
+                    free((head)->__data);
+                    free(head);
+                    head = nextNode;
                 };
 
                 return 1;
