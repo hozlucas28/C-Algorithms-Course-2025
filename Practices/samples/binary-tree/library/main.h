@@ -56,6 +56,8 @@ unsigned char isBalancedBTree(const BTree* tree);
 unsigned char isAVLBTree(const BTree* tree);
 
 // Methods
+unsigned char deleteBTreeRootNode(BTree* tree);
+
 unsigned char insertInBTree(
     BTree* tree,
     void* data,

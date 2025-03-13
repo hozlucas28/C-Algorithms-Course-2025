@@ -75,9 +75,14 @@ int main() {
     printf("\n> Map tree in post-order: ");
     mapBTreePostOrder(&tree, &printInt, NULL);
 
+    deleteBTreeRootNode(&tree);
+
+    printf("\n\n> Map tree in pre-order: ");
+    mapBTreePreOrder(&tree, &printInt, NULL);
+
     destroyBTree(&tree);
 
-    printf("%d", isBTreeEmpty(&tree));
+    printf("\n\n> Is the binary tree empty? %s.", isBTreeEmpty(&tree) ? "Yes" : "False");
 
     return 0;
 }

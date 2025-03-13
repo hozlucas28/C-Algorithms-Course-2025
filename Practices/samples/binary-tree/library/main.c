@@ -147,6 +147,44 @@ unsigned char isAVLBTree(const BTree* tree) {
 }
 
 // Methods
+TreeNode** __getMaxBTreeNode(BTree* tree) {
+    if (*tree == NULL) return NULL;
+
+    while ((*tree)->__right) tree = &(*tree)->__right;
+
+    return (TreeNode**)tree;
+}
+
+unsigned char deleteBTreeRootNode(BTree* tree) {
+    TreeNode** replacementNode;
+    TreeNode* deletedNode;
+
+    if (*tree == NULL) return 1;
+
+    free((*tree)->__data);
+
+    if((*tree)->__left == NULL && (*tree)->__right == NULL) {
+        free(*tree);
+        *tree = NULL;
+        return 0;
+    }
+
+    replacementNode =
+        getBTreeHeight(&(*tree)->__left) > getBTreeHeight(&(*tree)->__right)
+            ? __getMaxBTreeNode(&(*tree)->__left)
+            : __getMaxBTreeNode(&(*tree)->__right);
+
+    deletedNode = *replacementNode;
+    (*tree)->__data = deletedNode->__data;
+    (*tree)->__sizeOfData = deletedNode->__sizeOfData;
+
+    *replacementNode = deletedNode->__left ? deletedNode->__left : deletedNode->__right;
+
+    free(deletedNode);
+
+    return 0;
+}
+
 unsigned char insertInBTree(
     BTree* tree,
     void* data,
