@@ -85,12 +85,14 @@ void sortSList(
 
 void mapSList(
     SList* _list,
-    void (*callback)(const void* element)
+    void (*callback)(void* data, const size_t sizeOfData, const size_t index, const void* params),
+    const void* params
 );
 
 void reverseMapSList(
     const SList* _list,
-    void (*callback)(void* element, const size_t index)
+    void (*callback)(void* data, const size_t sizeOfData, const size_t index, const void* params),
+    const void* params
 );
 
 void reverSList(SList* _list);

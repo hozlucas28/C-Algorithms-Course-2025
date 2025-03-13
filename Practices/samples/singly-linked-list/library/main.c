@@ -313,30 +313,36 @@ void sortSList(
 
 void mapSList(
     SList* _list,
-    void (*callback)(const void* element)
+    void (*callback)(void* data, const size_t sizeOfData, const size_t index, const void* params),
+    const void* params
 ) {
+    size_t index = 0;
+
     while (*_list != NULL) {
-        callback((*_list)->__data);
+        callback((*_list)->__data, (*_list)->__sizeOfData, index, params);
         _list = &(*_list)->__next;
+        index++;
     };
 }
 
 void __reverseMapSList(
     const SList* _list,
     const size_t currentIndex,
-    void (*callback)(void* element, const size_t index)
+    void (*callback)(void* data, const size_t sizeOfData, const size_t index, const void* params),
+    const void* params
 ) {
     if (*_list == NULL) return;
 
-    __reverseMapSList(&(*_list)->__next, currentIndex + 1, callback);
-    callback((*_list)->__data, currentIndex);
+    __reverseMapSList(&(*_list)->__next, currentIndex + 1, callback, params);
+    callback((*_list)->__data,(*_list)->__sizeOfData, currentIndex, params);
 }
 
 void reverseMapSList(
     const SList* _list,
-    void (*callback)(void* element, const size_t index)
+    void (*callback)(void* data, const size_t sizeOfData, const size_t index, const void* params),
+    const void* params
 ) {
-    __reverseMapSList(_list, 0, callback);
+    __reverseMapSList(_list, 0, callback, params);
 }
 
 
