@@ -1,18 +1,9 @@
 
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "./main.h"
-
-/* ------ Private ------ */
-
-unsigned char __isBTreeFull(
-    const BTree* tree,
-    const size_t height
-);
-
-
-/* ------ Public ------- */
 
 // Constructor
 void newBTree(BTree* tree) {
@@ -33,19 +24,6 @@ void destroyBTree(BTree* tree) {
 }
 
 // Getters
-unsigned char __isBTreeFull(
-    const BTree* tree,
-    const size_t height
-) {
-    if (*tree == NULL) return height < 0;
-    if (height == 0) return 1;
-
-    const unsigned char isFullLeftTree = __isBTreeFull(&(*tree)->__left, height - 1);
-    const unsigned char isFullRightTree = __isBTreeFull(&(*tree)->__right, height - 1);
-
-    return isFullLeftTree && isFullRightTree;
-}
-
 size_t getBTreeHeight(const BTree* tree) {
     size_t leftHeight;
     size_t rightHeight;
@@ -60,6 +38,34 @@ size_t getBTreeHeight(const BTree* tree) {
     maxHeight = leftHeight > rightHeight ? leftHeight : rightHeight;
 
     return maxHeight + 1;
+}
+
+size_t __getBTreeNodesAtHeight(
+    const BTree* tree,
+    const size_t targetHeight,
+    const size_t currentHeight
+) {
+    if (*tree == NULL) return 0;
+    if (currentHeight >= targetHeight) return 1;
+
+    return __getBTreeNodesAtHeight(&(*tree)->__left, targetHeight, currentHeight + 1) +
+        __getBTreeNodesAtHeight(&(*tree)->__right, targetHeight, currentHeight + 1);
+}
+
+size_t getBTreeNodesAtHeight(
+    const BTree* tree,
+    const size_t height
+) {
+    if (!height) return 0;
+
+    return __getBTreeNodesAtHeight(tree, height, 1);
+}
+
+size_t getBTreeNodesAtLevel(
+    const BTree* tree,
+    const size_t level
+) {
+    return __getBTreeNodesAtHeight(tree, level, 0);
 }
 
 unsigned char isBTreeFull(
@@ -87,23 +93,57 @@ unsigned char isBTreeEmpty(const BTree* tree) {
     return *tree == NULL;
 }
 
-unsigned char isFullTree(const BTree* tree) {
-    const size_t treeHeight = getBTreeHeight(tree);
+unsigned char __isFullBTree(
+    const BTree* tree,
+    const size_t height
+) {
+    int isFullLeftTree;
+    int isFullRightTree;
 
-    const unsigned char isFullLeftTree = __isBTreeFull(&(*tree)->__left, treeHeight - 1);
-    const unsigned char isFullRightTree = __isBTreeFull(&(*tree)->__right, treeHeight - 1);
+    if (*tree == NULL) return height < 0;
+    if (height == 0) return 1;
+
+    isFullLeftTree = __isFullBTree(&(*tree)->__left, height - 1);
+    isFullRightTree = __isFullBTree(&(*tree)->__right, height - 1);
 
     return isFullLeftTree && isFullRightTree;
 }
 
-unsigned char isBTreeBalanced(const BTree* tree) {
+unsigned char isFullBTree(const BTree* tree) {
     const size_t treeHeight = getBTreeHeight(tree);
-    return __isBTreeFull(tree, treeHeight - 2);
+    if(treeHeight == 0) return 1;
+
+    return __isFullBTree(tree, treeHeight - 1);
 }
 
-unsigned char isBTreeAVL(const BTree* tree) {
-    // TODO
-    return 0;
+size_t isFullBTreeAtLevel(
+    const BTree* tree,
+    const size_t level
+) {
+    size_t nodesAtLevel = __getBTreeNodesAtHeight(tree, level, 0);
+    size_t remainingNodes = pow(2, level) - nodesAtLevel;
+
+    return remainingNodes;
+}
+
+unsigned char isBalancedBTree(const BTree* tree) {
+    const size_t treeHeight = getBTreeHeight(tree);
+    if(treeHeight == 0) return 1;
+
+    return __isFullBTree(tree, treeHeight - 2);
+}
+
+unsigned char isAVLBTree(const BTree* tree) {
+    int leftHeight;
+    int rightHeight;
+
+    if (*tree == NULL) return 1;
+
+    leftHeight = getBTreeHeight(&(*tree)->__left);
+    rightHeight = getBTreeHeight(&(*tree)->__right);
+    if (abs(leftHeight - rightHeight) > 1) return 0;
+
+    return isAVLBTree(&(*tree)->__left) && isAVLBTree(&(*tree)->__right);
 }
 
 // Methods

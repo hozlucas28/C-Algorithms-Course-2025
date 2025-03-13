@@ -27,21 +27,33 @@ void destroyBTree(BTree* tree);
 // Getters
 size_t getBTreeHeight(const BTree* tree);
 
-unsigned char isTreeFull(
+size_t getBTreeNodesAtHeight(
     const BTree* tree,
-    const size_t sizeOfData
+    const size_t height
 );
 
-unsigned char isBTreeEmpty(const BTree* tree);
+size_t getBTreeNodesAtLevel(
+    const BTree* tree,
+    const size_t level
+);
 
 unsigned char isBTreeFull(
     const BTree* tree,
     const size_t sizeOfData
 );
 
-unsigned char isBTreeBalanced(const BTree* tree);
+unsigned char isBTreeEmpty(const BTree* tree);
 
-unsigned char isBTreeAVL(const BTree* tree);
+unsigned char isFullBTree(const BTree* tree);
+
+size_t isFullBTreeAtLevel(
+    const BTree* tree,
+    const size_t level
+);
+
+unsigned char isBalancedBTree(const BTree* tree);
+
+unsigned char isAVLBTree(const BTree* tree);
 
 // Methods
 unsigned char insertInBTree(
