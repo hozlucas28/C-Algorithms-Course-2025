@@ -18,11 +18,6 @@ void destroyQueue(Queue* _queue) {
     _queue->__remainingCapacity = QUEUE_BYTES;
 }
 
-// [TAMAÑO | DATO]
-// [TAMAÑO | DATO]
-// [TAMAÑO | DATO]
-// [TAMAÑO | DATO]
-
 // Getters
 unsigned char getTopQueueElement(
     const Queue* _queue,
