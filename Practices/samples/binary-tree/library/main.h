@@ -53,17 +53,20 @@ unsigned char insertInBTree(
 
 unsigned char mapBTreeOrder(
     const BTree* tree,
-    void (*callback)(void* data)
+    void (*callback)(void* data, const size_t sizeOfData, const void* params),
+    const void* params
 );
 
 unsigned char mapBTreePreOrder(
     const BTree* tree,
-    void (*callback)(void* data)
+    void (*callback)(void* data, const size_t sizeOfData, const void* params),
+    const void* params
 );
 
 unsigned char mapBTreePostOrder(
     const BTree* tree,
-    void (*callback)(void* data)
+    void (*callback)(void* data, const size_t sizeOfData, const void* params),
+    const void* params
 );
 
 #endif // MAIN_LIBRARY_H_INCLUDED

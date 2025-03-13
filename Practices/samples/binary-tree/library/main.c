@@ -149,39 +149,42 @@ unsigned char insertInBTree(
 
 unsigned char mapBTreeOrder(
     const BTree* tree,
-    void (*callback)(void* data)
+    void (*callback)(void* data, const size_t sizeOfData, const void* params),
+    const void* params
 ) {
     if (*tree == NULL) return 1;
 
-    mapBTreeOrder(&(*tree)->__left, callback);
-    callback((*tree)->__data);
-    mapBTreeOrder(&(*tree)->__right, callback);
+    mapBTreeOrder(&(*tree)->__left, callback, params);
+    callback((*tree)->__data, (*tree)->__sizeOfData, params);
+    mapBTreeOrder(&(*tree)->__right, callback, params);
 
     return 0;
 }
 
 unsigned char mapBTreePreOrder(
     const BTree* tree,
-    void (*callback)(void* data)
+    void (*callback)(void* data, const size_t sizeOfData, const void* params),
+    const void* params
 ) {
     if (*tree == NULL) return 1;
 
-    callback((*tree)->__data);
-    mapBTreePreOrder(&(*tree)->__left, callback);
-    mapBTreePreOrder(&(*tree)->__right, callback);
+    callback((*tree)->__data, (*tree)->__sizeOfData, params);
+    mapBTreePreOrder(&(*tree)->__left, callback, params);
+    mapBTreePreOrder(&(*tree)->__right, callback, params);
 
     return 0;
 }
 
 unsigned char mapBTreePostOrder(
     const BTree* tree,
-    void (*callback)(void* data)
+    void (*callback)(void* data, const size_t sizeOfData, const void* params),
+    const void* params
 ) {
     if (*tree == NULL) return 1;
 
-    mapBTreePostOrder(&(*tree)->__left, callback);
-    mapBTreePostOrder(&(*tree)->__right, callback);
-    callback((*tree)->__data);
+    mapBTreePostOrder(&(*tree)->__left, callback, params);
+    mapBTreePostOrder(&(*tree)->__right, callback, params);
+    callback((*tree)->__data, (*tree)->__sizeOfData, params);
 
     return 0;
 }
