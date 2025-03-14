@@ -40,10 +40,6 @@
 		<Unit filename="stack.h" />
 		<Unit filename="structs.h" />
 		<Unit filename="test.xml" />
-		<Unit filename="utilities.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="utilities.h" />
 		<Unit filename="xml.c">
 			<Option compilerVar="CC" />
 		</Unit>
