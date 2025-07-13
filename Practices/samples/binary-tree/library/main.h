@@ -65,6 +65,8 @@ unsigned char insertInBTree(
     int (*cmp)(const void* data, const void* dataInTreeNode)
 );
 
+void mirrorBTree(BTree* tree);
+
 unsigned char mapBTreeOrder(
     const BTree* tree,
     void (*callback)(void* data, const size_t sizeOfData, const void* params),

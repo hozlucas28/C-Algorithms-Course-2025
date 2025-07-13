@@ -225,6 +225,22 @@ unsigned char insertInBTree(
     return 0;
 }
 
+void mirrorBTree(BTree* tree) {
+    TreeNode* left;
+    TreeNode* right;
+
+    if (*tree == NULL) return;
+
+    left = (*tree)->__left;
+    right = (*tree)->__right;
+
+    (*tree)->__left = right;
+    (*tree)->__right = left;
+
+    mirrorBTree(&(*tree)->__left);
+    mirrorBTree(&(*tree)->__right);
+}
+
 unsigned char mapBTreeOrder(
     const BTree* tree,
     void (*callback)(void* data, const size_t sizeOfData, const void* params),
