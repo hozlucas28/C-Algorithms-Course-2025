@@ -95,6 +95,11 @@ void reverseMapSList(
     const void* params
 );
 
-void reverSList(SList* _list);
+unsigned char clipAt(
+    SList* _list,
+    const size_t index
+);
+
+void reverseSList(SList* _list);
 
 #endif // MAIN_LIBRARY_H_INCLUDED

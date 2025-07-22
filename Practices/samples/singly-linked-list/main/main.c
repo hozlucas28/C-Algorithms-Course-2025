@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printInt(const void* element) {
-    printf("%d ", *(int*)element);
+void printInt(void* data, const size_t sizeOfData, const size_t index, const void* params) {
+    printf("%d ", *(int*)data);
 }
 
 int cmpIntegers(const void* data, const void* dataInList) {
@@ -32,15 +32,15 @@ int main() {
     };
 
     printf("> [ ");
-    mapSList(&_list, &printInt);
+    mapSList(&_list, &printInt, NULL);
     printf("]\n");
 
-    for (i =0; i < numbers01Length; i++) {
+    for (i = 0; i < numbers01Length; i++) {
         pushSListElement(&_list, numbers01 + i, sizeof(*(numbers01 + i)));
     };
 
     printf("> [ ");
-    mapSList(&_list, &printInt);
+    mapSList(&_list, &printInt, NULL);
     printf("]\n");
 
     insertSListElementAt(
@@ -51,7 +51,13 @@ int main() {
     );
 
     printf("> [ ");
-    mapSList(&_list, &printInt);
+    mapSList(&_list, &printInt, NULL);
+    printf("]\n");
+
+    clipAt(&_list, 3);
+
+    printf("> [ ");
+    mapSList(&_list, &printInt, NULL);
     printf("]\n");
 
     destroySList(&_list);
@@ -65,7 +71,7 @@ int main() {
     };
 
     printf("> [ ");
-    mapSList(&_list, &printInt);
+    mapSList(&_list, &printInt, NULL);
     printf("]\n");
 
     destroySList(&_list);

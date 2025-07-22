@@ -345,8 +345,42 @@ void reverseMapSList(
     __reverseMapSList(_list, 0, callback, params);
 }
 
+unsigned char clipAt(
+    SList* _list,
+    const size_t index
+) {
+    Node* head = *_list;
+    Node* newTail = NULL;
 
-void reverSList(SList* _list) {
+    Node* nextNode;
+
+    size_t counter = 0;
+    unsigned char error = 1;
+
+    while (*_list != NULL) {
+        if (counter == index) {
+            error = 0;
+
+            nextNode = (*_list)->__next;
+            free((*_list)->__data);
+            free(*_list);
+            *_list = nextNode;
+        } else {
+            counter++;
+            newTail = *_list;
+            _list = &(*_list)->__next;
+        };
+    };
+
+    if (newTail != NULL) {
+        *_list = head;
+        newTail->__next = NULL;
+    };
+
+    return error;
+}
+
+void reverseSList(SList* _list) {
     Node* nextNode;
     Node* prevNode = NULL;
 
