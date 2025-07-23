@@ -37,6 +37,13 @@ size_t getBTreeNodesAtLevel(
     const size_t level
 );
 
+unsigned char getBTreeElement(
+    const BTree* tree,
+    void* store,
+    const size_t sizeOfStore,
+    int (*cmp)(const void* a, const void* b)
+);
+
 unsigned char isBTreeFull(
     const BTree* tree,
     const size_t sizeOfData

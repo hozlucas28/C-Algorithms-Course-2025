@@ -68,6 +68,30 @@ size_t getBTreeNodesAtLevel(
     return __getBTreeNodesAtHeight(tree, level, 0);
 }
 
+unsigned char getBTreeElement(
+    const BTree* tree,
+    void* store,
+    const size_t sizeOfStore,
+    int (*cmp)(const void* a, const void* b)
+) {
+    int cmpValue = -1;
+
+    while (*tree != NULL && cmpValue != 0) {
+        cmpValue = cmp((*tree)->__data, store);
+
+        if (cmpValue < 0) {
+            tree = &(*tree)->__left;
+        } else if (cmpValue > 0) {
+            tree = &(*tree)->__right;
+        } else {
+            if ((*tree)->__sizeOfData != sizeOfStore) return 1;
+            memcpy(store, (*tree)->__data, sizeOfStore);
+        };
+    };
+
+    return *tree == NULL;
+}
+
 unsigned char isBTreeFull(
     const BTree* tree,
     const size_t sizeOfData
