@@ -13,16 +13,16 @@ size_t parseWordsBySeps(
     char* _word;
 
     char word[WORD_LENGTH];
-    unsigned char shouldStop = 0;
+    unsigned char shouldCount = 0;
     size_t words = 0;
 
     _word = strtok(line, separators);
 
     while (_word != NULL) {
         strcpy(word, _word);
-        shouldStop = onGetWord(word, params);
+        shouldCount = onGetWord(word, params);
         _word = strtok(NULL, separators);
-        words = words + 1 - !!shouldStop;
+        words = words + 1 - !!shouldCount;
     };
 
     return words;
@@ -41,7 +41,7 @@ int parseBrakedWordsFromFile(
     char* _word;
 
     char word[WORD_LENGTH];
-    unsigned char shouldStop = 0;
+    unsigned char shouldCount = 0;
     size_t words = 0;
 
     file = fopen(filePath, "rt");
@@ -63,8 +63,8 @@ int parseBrakedWordsFromFile(
                 _word = strtok(NULL, wordSeparators);
             };
 
-            shouldStop = onGetWord(word, params);
-            words = words + 1 - !!shouldStop;
+            shouldCount = onGetWord(word, params);
+            words = words + 1 - !!shouldCount;
         };
     };
 
