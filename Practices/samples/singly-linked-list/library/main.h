@@ -78,6 +78,14 @@ unsigned char insertSListElementTop(
     int (*cmp)(const void* data, const void* element)
 );
 
+unsigned char insertSListElementTop_v2(
+    SList* _list,
+    void* data,
+    const size_t sizeOfData,
+    const size_t top,
+    int (*cmp)(const void* a, const void* b)
+);
+
 void sortSList(
     SList* _list,
     int (*cmp)(const void* a, const void* b)
