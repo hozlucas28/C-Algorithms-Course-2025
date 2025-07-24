@@ -77,7 +77,7 @@ unsigned char getBTreeElement(
     int cmpValue = -1;
 
     while (*tree != NULL && cmpValue != 0) {
-        cmpValue = cmp((*tree)->__data, store);
+        cmpValue = cmp(store, (*tree)->__data);
 
         if (cmpValue < 0) {
             tree = &(*tree)->__left;
@@ -135,7 +135,7 @@ unsigned char __isFullBTree(
 
 unsigned char isFullBTree(const BTree* tree) {
     const size_t treeHeight = getBTreeHeight(tree);
-    if(treeHeight == 0) return 1;
+    if (treeHeight == 0) return 1;
 
     return __isFullBTree(tree, treeHeight - 1);
 }
@@ -152,7 +152,7 @@ size_t isFullBTreeAtLevel(
 
 unsigned char isBalancedBTree(const BTree* tree) {
     const size_t treeHeight = getBTreeHeight(tree);
-    if(treeHeight == 0) return 1;
+    if (treeHeight == 0) return 1;
 
     return __isFullBTree(tree, treeHeight - 2);
 }
@@ -168,6 +168,29 @@ unsigned char isAVLBTree(const BTree* tree) {
     if (abs(leftHeight - rightHeight) > 1) return 0;
 
     return isAVLBTree(&(*tree)->__left) && isAVLBTree(&(*tree)->__right);
+}
+
+unsigned char hasBTreeElement(
+    BTree* tree,
+    const void* data,
+    const size_t sizeOfData,
+    int (*cmp)(const void* a, const void* b)
+) {
+    int cmpValue = -1;
+
+    while (*tree != NULL && cmpValue != 0) {
+        cmpValue = cmp(data, (*tree)->__data);
+
+        if (cmpValue < 0) {
+            tree = &(*tree)->__left;
+        } else if (cmpValue > 0) {
+            tree = &(*tree)->__right;
+        } else {
+            if ((*tree)->__sizeOfData != sizeOfData) return 0;
+        };
+    };
+
+    return *tree != NULL;
 }
 
 // Methods
