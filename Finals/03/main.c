@@ -28,5 +28,7 @@ int main() {
 
     destroySList(&topRunners);
 
+    remove(FILE_PATH);
+
     return 0;
 }

@@ -27,5 +27,7 @@ int main() {
     destroyMenu(&menu);
     destroyBTree(&tree);
 
+    remove(TEST_FILE_PATH);
+
     return 0;
 }
