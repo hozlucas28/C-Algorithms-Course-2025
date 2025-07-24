@@ -98,5 +98,9 @@ int main() {
 
     fclose(file);
 
+    remove(FILE_A_PATH);
+    remove(FILE_B_PATH);
+    remove(OUTPUT_FILE_PATH);
+
     return 0;
 }
