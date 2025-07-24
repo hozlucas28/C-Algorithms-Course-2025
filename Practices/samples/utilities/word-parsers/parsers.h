@@ -25,4 +25,11 @@ int parseBrakedWordsFromFile(
     const void* params
 );
 
+int parseBrakedWordsFromFileUnknownSeps(
+    const char* filePath,
+    unsigned char (*isWordChar)(const char _char),
+    unsigned char (*onGetWord)(const char* word, const void* params),
+    const void* params
+);
+
 #endif // PARSERS_H_INCLUDED

@@ -73,5 +73,57 @@ int parseBrakedWordsFromFile(
     return words;
 }
 
+int parseBrakedWordsFromFileUnknownSeps(
+    const char* filePath,
+    unsigned char (*isWordChar)(const char _char),
+    unsigned char (*onGetWord)(const char* word, const void* params),
+    const void* params
+) {
+    FILE* file;
+
+    char line[LINE_LENGTH];
+    const size_t lineLength = sizeof(line) / sizeof(*line);
+
+    char word[WORD_LENGTH];
+    const size_t wordLength = sizeof(word) / sizeof(*word);
+
+    char* _line;
+    size_t wordOffset;
+
+    file = fopen(filePath, "rt");
+    if (file == NULL) return 1;
+
+    *word = '\0';
+
+    while (fgets(line, lineLength, file)) {
+        _line = line;
+
+        while (*_line != '\0') {
+            while (*_line != '\0' && !isWordChar(*_line)) _line++;
+
+            if (*word == '\0') wordOffset = 0;
+
+            while (isWordChar(*_line) && wordOffset < (wordLength - 1)) {
+                *(word + wordOffset) = *_line;
+                _line++;
+                wordOffset++;
+            };
+
+            *(word + wordOffset) = '\0';
+
+            if (*_line != '\n' && *_line != '\0') {
+                onGetWord(word, params);
+                *word = '\0';
+            };
+        };
+    };
+
+    if (*word != '\0') onGetWord(word, params);
+
+    fclose(file);
+
+    return 0;
+}
+
 
 
