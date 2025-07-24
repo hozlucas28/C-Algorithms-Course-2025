@@ -31,9 +31,30 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="actions.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="actions.h" />
+		<Unit filename="binary-tree.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="binary-tree.h" />
+		<Unit filename="cmps.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cmps.h" />
+		<Unit filename="macros.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test.h" />
+		<Unit filename="utilities.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="utilities.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
